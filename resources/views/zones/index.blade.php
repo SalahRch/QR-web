@@ -119,16 +119,13 @@ padding: 0;
                             <div class="images">
                                 <input type="radio" name="slide" id="img1" checked>
                                 <input type="radio" name="slide" id="img2">
-                                <input type="radio" name="slide" id="img3">
 
-                                <img src="/qrcodes/{{$zone->name}}.svg" class="m1" alt="QR Code">
-                                <img src="/images/ph1.png" class="m2" alt="img2">
-                                <img src="/images/ph3.png" class="m3" alt="img3">
+                                <img src="/qrcodesPID/{{$zone->name}}.svg" class="m1" alt="QR Code">
+                                <img src="/images/internimages/{{$zone->images}}" class="m2" alt="img2">
                             </div>
                             <div class="dots">
                                 <label for="img1"></label>
                                 <label for="img2"></label>
-                                <label for="img3"></label>
                             </div>
                         </div>
 

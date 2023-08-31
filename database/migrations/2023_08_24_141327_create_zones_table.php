@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('pdf')->nullable();
-            $table->string('qr_code')->nullable();
+            $table->text('dp')->nullable();
+            $table->string('qr_codePDF')->nullable();
+            $table->string('qr_codeDP')->nullable();
             $table->text('images')->nullable();
             $table->text('type');
             $table->timestamps();

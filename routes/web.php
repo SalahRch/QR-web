@@ -21,7 +21,11 @@ Auth::routes();
 
 Route::get('/zones/create', [App\Http\Controllers\ZonesController::class, 'create']);
 
+Route::post('/zones/create', [App\Http\Controllers\ZonesController::class, 'create'])->name('zones.create');
+
 Route::get('/zones/pdf-view/{name}', [App\Http\Controllers\ZonesController::class, 'showPDFView'])->name('pdf-view-route');
+
+Route::get('/zones/dp-view/{name}/', [App\Http\Controllers\ZonesController::class, 'showDPView'])->name('dp-view-route');
 
 Route::get('/zones/{zone_id}/edit', [App\Http\Controllers\ZonesController::class, 'edit'])->name('zones.edit');
 
@@ -32,5 +36,7 @@ Route::get('/zones/{zone_id}', [App\Http\Controllers\ZonesController::class, 'in
 Route::put('/zones/{zone_id}', [App\Http\Controllers\ZonesController::class, 'update'])->name('zones.update');
 
 Route::post('/zones', [App\Http\Controllers\ZonesController::class, 'store']);
+
+Route::post('/zones/index', [App\Http\Controllers\ZonesController::class, 'all'])->name('zones.index');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

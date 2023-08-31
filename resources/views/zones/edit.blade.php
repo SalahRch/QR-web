@@ -18,8 +18,23 @@
             <div class="form-group">
                 <label for="pdf">Zone pdf</label>
                 <input type="file" class="form-control-file" id="pdf" name="pdf">
-                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
+            <div class="form-group">
+                <label for="dp">Zone dp</label>
+                <input type="file" class="form-control-file" id="dp" name="dp">
+            </div>
+            <div class="form-group">
+                <label for="images">Zone images</label>
+                <input type="file" class="form-control-file" id="images" name="images[]" multiple>
+            </div>
+            <div class="form-group">
+                <label for="type">Zone Type</label>
+                <select class="form-control" id="type" name="type">
+                    <option value="1">Zone</option>
+                    <option value="2">Equipement/Sub zone</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 

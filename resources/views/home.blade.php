@@ -64,17 +64,18 @@
                         </div>
                         <div class="col-md-3 col-sm-6 wow bounceInUp">
                             <div class="single-item">
-                                <i class="fa fa-plus"></i>
-                                <h2>Add QR</h2>
-                                <a href=""></a>
-                                <p>Add new PID QR</p>
+                                <a href="{{route('zones.create')}}">
+                                    <i class="fa fa-qrcode" ></i>
+                                </a>
+                                <h2>EXPLORE QRS</h2>
+                                <p>Explore all the QRS available</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 wow bounceInUp">
                             <div class="single-item">
-                                <i class="fa fa-map-marker"></i>
-                                <h2>Explore Map</h2>
-                                <p>Explore full map for full access to PIDs</p>
+                                <i class="fa fa-file-pdf-o"></i>
+                                <h2>Explore P&ID</h2>
+                                <p>Explore all the PDF data available</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 wow bounceInUp">

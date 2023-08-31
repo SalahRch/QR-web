@@ -28,7 +28,9 @@ class ZonesController extends Controller
         $zone->delete();
 
         unlink(public_path('pdf/'.$zone->pdf));
-        unlink(public_path('qrcodes/'.$zone->name.'.svg'));
+        unlink(public_path('qrcodesPID/'.$zone->name.'.svg'));
+        unlink(public_path('images/internimages/'.$zone->images));
+        unlink(public_path('qrcodesDP/'.$zone->name.'.svg'));
 
         return redirect('/home');
     }
@@ -37,10 +39,20 @@ class ZonesController extends Controller
     {
         return view('zones.create');
     }
+    public function all()
+    {
+        return view('zones.all');
+    }
+
     public function showPDFView($name)
     {
         $zone = Zones::where('name', $name)->first();
         return view('zones.pdf-view', compact('zone'));
+    }
+    public function showDPView($name)
+    {
+        $zone = Zones::where('name', $name)->first();
+        return view('zones.dp-view', compact('zone'));
     }
 
     public function store(){
@@ -56,18 +68,36 @@ class ZonesController extends Controller
         $zone = new Zones();
         $zone->name = request('name');
         $zone->description = request('description');
-        $zone->
+        $zone->type = request('type');
 
-        //import pdf file to public folder
-        $file = request()->file('pdf');
-        $file->move(public_path('pdf'), $file->getClientOriginalName());
-        $zone->pdf = $file->getClientOriginalName();
+if(request()->file('images')){
+        $image = request()->file('images');
+        $imageName = $image[0]->getClientOriginalName();
+        $image[0]->move(public_path('images/internimages'), $imageName);
+        $zone->images = $imageName;
+}
 
-        $path = route('pdf-view-route', $zone->name);
+if(request()->file('dp')){
+        $dp= request()->file('dp');
+        $dp->move(public_path('dp'), $dp->getClientOriginalName());
+        $zone->dp = $dp->getClientOriginalName();
 
-        $zone->qr_code = QrCode::size(500)->generate($path , public_path('qrcodes/'.$zone->name.'.svg'));
+        $path = route('dp-view-route', $zone->name);
+        $zone->qr_codeDP = QrCode::size(500)->generate($path , public_path('qrcodesDP/'.$zone->name.'.svg'));
+}
+
+if (request()->file('pdf')) {
+    $file = request()->file('pdf');
+    $file->move(public_path('pdf'), $file->getClientOriginalName());
+    $zone->pdf = $file->getClientOriginalName();
+
+    $path = route('pdf-view-route', $zone->name);
+    $zone->qr_codePDF = QrCode::size(500)->generate($path, public_path('qrcodesPID/' . $zone->name . '.svg'));
+}
 
         $zone->save();
+
+        return redirect('/home');
 
     }
     public function update($zoneid){
@@ -75,6 +105,22 @@ class ZonesController extends Controller
         $zone = Zones::find($zoneid);
         $zone->name = request('name');
         $zone->description = request('description');
+        $zone->type = request('type');
+
+        if(request()->file('images')){
+            $image = request()->file('images');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('images/internimages'), $imageName);
+            $zone->images = $imageName;
+        }
+
+        if(request()->file('dp')){
+            $dp= request()->file('dp');
+            $dp->move(public_path('dp'), $dp->getClientOriginalName());
+            $zone->dp = $dp->getClientOriginalName();
+        }
+        $pathdp = route('dp-view-route', $zone->name);
+        $zone->qr_codeDP = QrCode::size(500)->generate($pathdp , public_path('qrcodesDP/'.$zone->name.'.svg'));
 
         //if pdf file imported update it
         if(request()->file('pdf')){
@@ -84,8 +130,7 @@ class ZonesController extends Controller
         }
 
         $path = route('pdf-view-route', $zone->name);
-
-        $zone->qr_code = QrCode::size(500)->generate($path , public_path('qrcodes/'.$zone->name.'.svg'));
+        $zone->qr_codePDF = QrCode::size(500)->generate($path , public_path('qrcodesPID/'.$zone->name.'.svg'));
 
         $zone->save();
 

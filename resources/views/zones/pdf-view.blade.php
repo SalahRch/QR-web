@@ -10,12 +10,12 @@
         </iframe>
     </div>
     <div style="text-align:center;">
-        @if(Auth::user()->role == 'admin')
+
             <a href="/zones/{{$zone->zone_id}}" class="btn btn-primary">view QR</a>
             <a href="/zones" class="btn btn-primary">view more zones</a>
-        @else
-    <a href="/zones" class="btn btn-primary">view more zones</a>
-        @endif
+
+    <a href="/zones/dp-view/{{$zone->name}}" class="btn btn-primary">view DP diagram</a>
+
     </div>
 @endsection
 
