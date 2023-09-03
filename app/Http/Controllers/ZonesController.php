@@ -3,17 +3,77 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\User;
 use App\Models\Zones;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Http;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 class ZonesController extends Controller
 {
 
+    public function display()
+    {
+        return view('zones.all');
+    }
+
+    public function displayzones($type)
+    {
+        $zones = Zones::where('type', $type)->get();
+        return view('zones.displayzones', compact('zones'));
+    }
+    public function displaypdf()
+    {
+        $zones = Zones::all();
+        return view('zones.displaypdf',compact('zones'));
+    }
+    public function search(){
+        $search_text = $_GET['search'];
+        $zones = Zones::where('name', 'LIKE', '%'.$search_text.'%')->get();
+        return view('zones.search', compact('zones'));
+    }
+    public function getDownload($zoneid)
+    {
+        $zone = Zones::find($zoneid);
+
+        $file = public_path() . "/pdf/" . $zone->pdf;
+
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+
+        return Response::download($file, $zone->name . '.pdf', $headers);
+    }
+    public function admin()
+    {
+        return view('admin.admin');
+    }
     public function index($zoneid)
     {
         $zone = Zones::find($zoneid);
         return view('zones.index', compact('zone'));
+    }
+    public function dp($zoneid)
+    {
+        $zone = Zones::find($zoneid);
+        return view('zones.dp', compact('zone'));
+    }
+    public function other($zoneid)
+    {
+        $zone = Zones::find($zoneid);
+        return view('zones.other', compact('zone'));
+    }
+
+    public function editmenu()
+    {
+        $zones =  Zones::all();
+        return view('admin.editmenu', compact('zones'));
+    }
+    public function deletemenu()
+    {
+        $zones =  Zones::all();
+        return view('admin.deletemenu', compact('zones'));
     }
 
     public function edit($zoneid){
@@ -31,6 +91,9 @@ class ZonesController extends Controller
         unlink(public_path('qrcodesPID/'.$zone->name.'.svg'));
         unlink(public_path('images/internimages/'.$zone->images));
         unlink(public_path('qrcodesDP/'.$zone->name.'.svg'));
+        unlink(public_path('dp/'.$zone->dp));
+        unlink(public_path('images/logo/'.$zone->logo));
+        unlink(public_path('other/'.$zone->other));
 
         return redirect('/home');
     }
@@ -39,10 +102,27 @@ class ZonesController extends Controller
     {
         return view('zones.create');
     }
-    public function all()
+public function createuser()
     {
-        return view('zones.all');
+        return view('admin.createuser');
     }
+
+public function edituser()
+    {
+        $users = User::all();
+        return view('admin.editusermenu', compact('users'));
+    }
+    public function editsolo($id)
+    {
+        $user = User::find($id);
+        return view('admin.edituser', compact('user'));
+    }
+    public function deleteuser()
+    {
+        $users = User::all();
+        return view('admin.deleteuser', compact('users'));
+    }
+
 
     public function showPDFView($name)
     {
@@ -72,10 +152,11 @@ class ZonesController extends Controller
 
 if(request()->file('images')){
         $image = request()->file('images');
-        $imageName = $image[0]->getClientOriginalName();
-        $image[0]->move(public_path('images/internimages'), $imageName);
+        $imageName = $image->getClientOriginalName();
+        $image->move(public_path('images/internimages'), $imageName);
         $zone->images = $imageName;
 }
+
 
 if(request()->file('dp')){
         $dp= request()->file('dp');
@@ -85,6 +166,21 @@ if(request()->file('dp')){
         $path = route('dp-view-route', $zone->name);
         $zone->qr_codeDP = QrCode::size(500)->generate($path , public_path('qrcodesDP/'.$zone->name.'.svg'));
 }
+if(request()->file('other')){
+        $other = request()->file('other');
+        $otherName = $other->getClientOriginalName();
+        $other->move(public_path('other'), $otherName);
+        $zone->other = $otherName;
+
+        $pathother = route('other-view-route', $zone->name);
+        $zone->qr_codeOther = QrCode::size(500)->generate($pathother , public_path('qrcodesOther/'.$zone->name.'.svg'));
+}
+if(request()->file('logo')){
+        $logo = request()->file('logo');
+        $logoName = $logo->getClientOriginalName();
+        $logo->move(public_path('images/logo'), $logoName);
+        $zone->logo = $logoName;
+}
 
 if (request()->file('pdf')) {
     $file = request()->file('pdf');
@@ -93,7 +189,9 @@ if (request()->file('pdf')) {
 
     $path = route('pdf-view-route', $zone->name);
     $zone->qr_codePDF = QrCode::size(500)->generate($path, public_path('qrcodesPID/' . $zone->name . '.svg'));
+
 }
+
 
         $zone->save();
 
@@ -113,6 +211,21 @@ if (request()->file('pdf')) {
             $image->move(public_path('images/internimages'), $imageName);
             $zone->images = $imageName;
         }
+        if(request()->file('logo')){
+            $logo = request()->file('logo');
+            $logoName = $logo->getClientOriginalName();
+            $logo->move(public_path('images/logo'), $logoName);
+            $zone->logo = $logoName;
+        }
+        if(request()->file('other')){
+            $other = request()->file('other');
+            $otherName = $other->getClientOriginalName();
+            $other->move(public_path('other'), $otherName);
+            $zone->other = $otherName;
+        }
+        $pathother = route('other-view-route', $zone->name);
+        $zone->qr_codeOther = QrCode::size(500)->generate($pathother , public_path('qrcodesOther/'.$zone->name.'.svg'));
+
 
         if(request()->file('dp')){
             $dp= request()->file('dp');

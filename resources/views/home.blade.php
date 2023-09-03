@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-md-3 col-sm-6 wow bounceInUp">
                             <div class="single-item">
-                                <a href="{{route('zones.create')}}">
+                                <a href="{{route('zones.display')}}">
                                     <i class="fa fa-qrcode" ></i>
                                 </a>
                                 <h2>EXPLORE QRS</h2>
@@ -73,7 +73,9 @@
                         </div>
                         <div class="col-md-3 col-sm-6 wow bounceInUp">
                             <div class="single-item">
+                                <a href="{{route('zones.displaypdf')}}">
                                 <i class="fa fa-file-pdf-o"></i>
+                                </a>
                                 <h2>Explore P&ID</h2>
                                 <p>Explore all the PDF data available</p>
                             </div>

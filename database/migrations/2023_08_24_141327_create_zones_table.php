@@ -17,9 +17,12 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('pdf')->nullable();
             $table->text('dp')->nullable();
+            $table->text('other')->nullable();
             $table->string('qr_codePDF')->nullable();
             $table->string('qr_codeDP')->nullable();
+            $table->string('qr_codeOther')->nullable();
             $table->text('images')->nullable();
+            $table->text('logo')->nullable();
             $table->text('type');
             $table->timestamps();
         });

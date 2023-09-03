@@ -79,8 +79,8 @@ padding: 0;
     </div> -->
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-xs-12">
-            <h2>About Kiley </h2>
-            <p>KM Health & Fitness</p>
+            <h2>P&ID QR code : </h2>
+            <p>{{$zone->name}}</p>
         </div>
     </div>
 </div>
@@ -110,8 +110,7 @@ padding: 0;
                         <p style="text-align:left">
                             {{$zone->description}}
                         </p>
-                        <a href="/zones/{{$zone->zone_id}}/edit" class="btn btn-primary">Edit</a>
-                        <a href="/zones/{{$zone->zone_id}}/delete" class="btn btn-danger">Delete</a>
+
 
                     </div>
                     <div class="col-md-6 boxSlide">

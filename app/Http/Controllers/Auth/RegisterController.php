@@ -63,13 +63,46 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create()
     {
+
+        $data = request()->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'role' => 'required|string|max:255',
+
+        ]);
+
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
         ]);
+    }
+    protected function update($id)
+    {
+
+        $data = request()->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'role' => 'required|string|max:255',
+
+        ]);
+
+        $user = User::find($id);
+        $user->name = request('name');
+        $user->email = request('email');
+        $user->role = request('role');
+        $user->save();
+        return redirect('/zones/edituser');
+    }
+    protected function delete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/zones/deleteuser');
     }
 }
