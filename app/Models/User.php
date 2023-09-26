@@ -43,16 +43,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-   /* public function create($data)
+    public function hasRole($role)
     {
-        $user = new User();
-        $user->name = $data['name'];
-        $user->role = $data['role'];
-        $user->email = $data['email'];
-        $user->password = $data['password'];
-        $user->save();
+        return $this->role === $role;
     }
-   */
+
+
 
 
 }

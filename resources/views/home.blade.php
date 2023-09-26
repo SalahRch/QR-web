@@ -28,10 +28,7 @@
                             <div class="left-text">
                                 <h2 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">About</h2>
                                 <div class="line"></div>
-                                <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">random text here about all entr and world blablabla.</p>
-                                <div class="button">
-                                    <a href="" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Read More</a>
-                                </div>
+                                <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">The OCP Group, has embarked on an innovative journey to tackle one of the world's most pressing challenges: water scarcity. Collaborating with a consortium of international partners, including QT Water, ESLI, ION Exchange, MCT, and Forever Pur, OCP is spearheading a transformative effort in the desalination of seawater.</p>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-6 col-xs-pull-2">
@@ -57,7 +54,9 @@
                     <div class="sevice-items">
                         <div class="col-md-3 col-sm-6 wow bounceInUp">
                             <div class="single-item">
-                                <i class="fa fa-camera"></i>
+                                <a href="/scan">
+                                    <i class="fa fa-camera" ></i>
+                                </a>
                                 <h2>Scan QR</h2>
                                 <p>Scan QR code to access PID</p>
                             </div>
@@ -82,9 +81,11 @@
                         </div>
                         <div class="col-md-3 col-sm-6 wow bounceInUp">
                             <div class="single-item">
-                                <i class="fa fa-download"></i>
-                                <h2>Download</h2>
-                                <p>Download it ALL!</p>
+                                <a href="https://www.ocpgroup.ma/">
+                                <i class="fa fa-link"></i>
+                                </a>
+                                <h2>Redirection</h2>
+                                <p>OCP main page</p>
                             </div>
                         </div>
                     </div>
@@ -110,11 +111,8 @@
                             <div class="left-text">
                                 <h2 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">More ...</h2>
                                 <div class="line"></div>
-                                <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">bzjdkaedkznfjk ezfbjhzrbfjz zbfrjarfk ejzfbkzfkjz efbzjbfbzbefzk</p>
-                                <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">- efueuf jnfejvk</p>
-                                <div class="button">
-                                    <a href="#" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Read More</a>
-                                </div>
+                                <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">We have greatly increased the use of desalinated seawater resources in our industrial activities. Our complex in Jorf Lasfar is served by the largest seawater desalination plant in Morocco, with an annual capacity of 25 million m3. An extension of this station is also planned for 2021 and will increase its capacity to 40 million m3 per year. In Laayoune, a new similar station is planned for 2022 to meet the needs of our Phosboucraa site. It will reinforce the current capacities estimated at 1.2 million m3.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -134,9 +132,6 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 col-xs-12 wow animated fadeInDown">
                         <h1>Fill This Application Now!</h1>
-                        <div class="col-md-12">
-                            <p>Nulla aliquam felis mi, volutpat convallis lorem eleifend id. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
-                        </div>
                     </div>
                 </div>
                 <form action="#" method="get">

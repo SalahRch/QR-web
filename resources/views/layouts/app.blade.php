@@ -68,17 +68,32 @@
             <!--/.navbar-header-->
             <div id="main-nav" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right" style="margin-top:60px; text-transform:uppercase">
-                    <li><a href="">Home</a></li>
-                    <li>
-                        <a href="">About</a>
-                    </li>
-                    <li><a href="">Services</a></li>
-                    <li><a href="">Contact</a></li>
-                    <!--<li><a href="#"><span>Sign Up</span></a></li>-->
-                </ul>
+
+
+                        @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                @if (Auth::user()->role == 'admin')
+                                    <a class="dropdown-item" href="{{ route('zones.admin') }}">
+                                        {{ __('Admin') }}
+                                    </a>
+                                @endif
+                            </li>
+                        <li class="nav-item">
+                                <a class="dropdown-item" href="{{ route('logout.perform') }}">
+                                    {{ __('Logout') }}
+                                </a>
+                        </li>
+                        @endguest
+                    </ul>
 
                 </div>
-            </div>
+        </div>
         </nav>
 
         <main class="py-4">
@@ -90,46 +105,3 @@
 
 </html>
 
-
-
-
-<!--
-
-<ul class="navbar-nav ms-auto">
-
-    @guest
-        @if (Route::has('login'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-            </li>
-        @endif
-
-        @if (Route::has('register'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-            </li>
-        @endif
-    @else
-        <li class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }}
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-            </div>
-        </li>
-    @endguest
-</ul>
-
-
-
--->

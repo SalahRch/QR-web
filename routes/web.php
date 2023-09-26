@@ -1,14 +1,46 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+Route::group(['middleware' => ['auth']], function() {
+    /**
+     * Logout Route
+     */
+    Route::get('/zones/display', [App\Http\Controllers\ZonesController::class, 'display'])->name('zones.display');
+
+    Route::get('/zones/displayzones/{type}', [App\Http\Controllers\ZonesController::class, 'displayzones']);
+
+    Route::get('/zones/displaypdf', [App\Http\Controllers\ZonesController::class, 'displaypdf'])->name('zones.displaypdf');
+
+    Route::post('/zones/displayzones/{type}', [App\Http\Controllers\ZonesController::class, 'displayzones'])->name('zones.displayzones');
+
+    Route::get('/logout', [App\Http\Controllers\LogoutController::class, 'perform'])->name('logout.perform');
+});
+
+
+//if user role is admin then redirect to admin dashboard
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    Route::get('/zones/admin' , [App\Http\Controllers\ZonesController::class, 'admin'])->name('zones.admin');
+
+    Route::post('/reports', [App\Http\Controllers\ReportsController::class, 'store']);
+
+    Route::get('/charts', [App\Http\Controllers\ReportsController::class, 'charts'])->name('charts.index');
+
+    Route::get('/zones/reports', [App\Http\Controllers\ReportsController::class, 'display'])->name('admin.reports');
+
+    Route::get('/zones/createreport', [App\Http\Controllers\ReportsController::class, 'create'])->name('admin.createreport');
 });
 
 Auth::routes();
+
+
 
 Route::get('/zones/create', [App\Http\Controllers\ZonesController::class, 'create']);
 
@@ -20,21 +52,19 @@ Route::get('/zones/createuser', [App\Http\Controllers\ZonesController::class, 'c
 
 Route::get('/zones/edituser', [App\Http\Controllers\ZonesController::class, 'edituser'])->name('zones.edituser');
 
-Route::get('/zones/display', [App\Http\Controllers\ZonesController::class, 'display'])->name('zones.display');
+
 
 Route::get('/zones/search', [App\Http\Controllers\ZonesController::class, 'search'])->name('zones.search');
 
-Route::get('/zones/admin' , [App\Http\Controllers\ZonesController::class, 'admin'])->name('zones.admin');
+
 
 Route::get('/zones/download/{zone_id}', [App\Http\Controllers\ZonesController::class, 'getDownload'])->name('zones.download');
 
-Route::get('/zones/displaypdf', [App\Http\Controllers\ZonesController::class, 'displaypdf'])->name('zones.displaypdf');
+
 
 Route::post('/zones/create', [App\Http\Controllers\ZonesController::class, 'create'])->name('zones.create');
 
-Route::get('/zones/displayzones/{type}', [App\Http\Controllers\ZonesController::class, 'displayzones']);
 
-Route::post('/zones/displayzones/{type}', [App\Http\Controllers\ZonesController::class, 'displayzones'])->name('zones.displayzones');
 
 Route::get('/zones/pdf-view/{name}', [App\Http\Controllers\ZonesController::class, 'showPDFView'])->name('pdf-view-route');
 
@@ -64,8 +94,13 @@ Route::get('/zones/other/{zone_id}', [App\Http\Controllers\ZonesController::clas
 
 Route::post('/zones', [App\Http\Controllers\ZonesController::class, 'store']);
 
+
 Route::post('/users', [App\Http\Controllers\Auth\RegisterController::class, 'create']);
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+Route::get('/scan', function () {
+    return view('scan');
+});

@@ -18,6 +18,7 @@ class ZonesController extends Controller
         return view('zones.all');
     }
 
+
     public function displayzones($type)
     {
         $zones = Zones::where('type', $type)->get();
@@ -47,7 +48,17 @@ class ZonesController extends Controller
     }
     public function admin()
     {
-        return view('admin.admin');
+        $apiKey = 'e18ead73144242feaaf105644231409';
+        $location = 'Jorf';
+
+        $response = Http::get("http://api.weatherapi.com/v1/current.json?key=$apiKey&q=$location&aqi=no");
+
+        $weatherData = $response->json();
+
+        //pass zones data as well
+
+        return view('admin.admin', ['weatherData' => $weatherData,'users' => User::all(), 'zones' => Zones::all()]);
+
     }
     public function index($zoneid)
     {
@@ -135,7 +146,7 @@ public function edituser()
         return view('zones.dp-view', compact('zone'));
     }
 
-    public function store(){
+    public function store(Request $request){
 /*
          $data = request()->validate([
             'name' => 'required',
@@ -144,6 +155,24 @@ public function edituser()
             'qr_code' => '',
         ]);
 */
+        $rules = [
+            'name' => 'required', // Field1 is not supposed to be null
+            'description' => 'nullable', // Field2 is not supposed to be null
+            // Add rules for other fields as needed
+            'pdf' => 'nullable',
+            'dp' => 'nullable',
+            'other' => 'nullable',
+            'images' => 'nullable',
+            'logo' => 'nullable',
+            'type' => 'required',
+
+        ];
+        $messages = [
+            'name.required' => 'Name is required.',
+            'type.required' => 'Type is required.',
+            // Add custom error messages for other fields
+        ];
+        $request->validate($rules, $messages);
 
         $zone = new Zones();
         $zone->name = request('name');

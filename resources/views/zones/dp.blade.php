@@ -118,6 +118,7 @@ padding: 0;
                                 <input type="radio" name="slide" id="img1" checked>
                                 <input type="radio" name="slide" id="img2">
 
+
                                 <img src="/qrcodesDP/{{$zone->name}}.svg" class="m1" alt="QR Code">
                                 <img src="/images/internimages/{{$zone->images}}" class="m2" alt="img2">
                             </div>
@@ -125,8 +126,8 @@ padding: 0;
                                 <label for="img1"></label>
                                 <label for="img2"></label>
                             </div>
+                            <a href="/qrcodesDP/{{$zone->name}}.svg" download="{{$zone->name}}.svg" class="btn btn-primary">Download QR</a>
                         </div>
-
                     </div>
                 </div>
             </div>

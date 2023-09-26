@@ -29,7 +29,7 @@
                                     <label>Role</label>
                                     <div class="input-group col-xs-12">
                                         <select class="custom-select" id="role" name="role">
-                                            <option selected>Select...</option>
+                                            <option selected value="">Select...</option>
                                             <option value="admin">Admin</option>
                                             <option value="user">User</option>
                                         </select>

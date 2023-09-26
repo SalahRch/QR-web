@@ -16,6 +16,7 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "chartjs-plugin-datalabels": "^2.2.0",
         "formidable": "^2.1.2",
         "view.js": "^4.1.0",
         "vue": "^3.3.4",

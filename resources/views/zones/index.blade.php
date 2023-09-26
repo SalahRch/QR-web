@@ -77,6 +77,8 @@ padding: 0;
     <!-- <div>
         <img src="images/ph3.jpg" class="img-responsive" alt="post header">
     </div> -->
+
+    @if($zone)
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-xs-12">
             <h2>P&ID QR code : </h2>
@@ -127,11 +129,12 @@ padding: 0;
                                 <label for="img2"></label>
                             </div>
                         </div>
-
                     </div>
+                    <a href="/qrcodesPID/{{$zone->name}}.svg" download="{{$zone->name}}.svg" class="btn btn-primary">Download QR</a>
                 </div>
             </div>
         </div>
+        @endif
     </div>
 
 

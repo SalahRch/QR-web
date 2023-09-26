@@ -14,8 +14,11 @@
                 <form class="forms-sample" action="/zones" enctype="multipart/form-data" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Name *</label>
                         <input type="text" class="form-control" name="name" id="name" placeholder="name">
+                        @error('name')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Logo</label>
@@ -25,14 +28,17 @@
                         </div>
                     </div>
                         <div class="form-group">
-                            <label>Type</label>
+                            <label>Type *</label>
                             <div class="input-group col-xs-12">
                             <select class="custom-select" id="type" name="type">
-                                <option selected>Select...</option>
+                                <option selected value="">Select...</option>
                                 <option value="1">Zone</option>
                                 <option value="2">Equipement/Subzone</option>
                             </select>
                             </div>
+                            @error('type')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     <div class="form-group">
                         <label>P&ID upload</label>
